@@ -11,8 +11,8 @@ target=
 view: build
 	open index.html
 
-build: */
-	echo $^ | xargs -n1 -I % make -f $(makefile) -C % build
+build:
+	ls -d */ | xargs -n1 -I % make -f $(makefile) -C % build
 	@echo "\n# Building $(shell pwd)"
 	make -f $(makefile) subdir_cache
 	make -f $(makefile) index.html
@@ -63,8 +63,9 @@ TOC.md: subdirs.md5
 		| xargs -n1 -I % echo "* ["%"]("%"/index.html)" \
 		>> $@
 
-clean: */
-	echo $(subst /,,$^) \
+clean:
+	ls -d */ \
+		| sed 's/\///g' \
 		| xargs -n1 -I % make -f $(makefile) -C % clean
 	@echo "\n# Cleaning $(shell pwd)"
 	rm -f index.html TOC.md subdirs.md5 LOG.md log.html tc.html timecard.txt timecard.md timecard.html
