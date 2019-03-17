@@ -26,7 +26,7 @@ git init
 
 ##### Symlink all the logbook software into your journal
 ```bash
-ln -sf ~/.logbook .
+ln -sf ~/.logbook/* .
 git add .
 git commit -m "Support journaling and todos via logbook"
 ```
